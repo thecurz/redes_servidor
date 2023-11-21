@@ -37,16 +37,6 @@ class Order(models.Model):
     status = models.CharField(max_length=50, default="pending")
 
 
-class Client(models.Model):
-    name = models.CharField(max_length=100)
-    email = models.EmailField(max_length=254)
-    phone_number = models.CharField(max_length=20)
-    orders = models.ManyToManyField(Order)
-
-    def __str__(self):
-        return self.name
-
-
 class Receipt(models.Model):
     nombre = models.CharField(max_length=100)
     apellido = models.CharField(max_length=100)
@@ -54,3 +44,13 @@ class Receipt(models.Model):
     direccion = models.CharField(max_length=200)
     pago = models.CharField(max_length=50)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
+
+
+class Client(models.Model):
+    name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100, default="")
+    phone_number = models.CharField(max_length=20)
+    orders = models.ManyToManyField(Receipt)
+
+    def __str__(self):
+        return self.name
